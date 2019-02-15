@@ -1,20 +1,33 @@
 ---
 driver:
-  name: vagrant
+  name: ec2
+  aws_ssh_key_id: # <aws key pair name>
+  region: eu-west-1
+  availability_zone: b
+  require_chef_omnibus: true
+  instance_type: t2.micro
+  associate_public_ip: true
+  shared_credentials_profile: # <your profile name, or just remove for default>
 
 provisioner:
   name: chef_zero
-  # You may wish to disable always updating cookbooks in CI or other testing environments.
-  # For example:
-  #   always_update_cookbooks: <%= !ENV['CI'] %>
   always_update_cookbooks: true
+  product_name: chef
+  product_version: 14.3.37 # <customers chef client version>
+  multiple_converge: 2
+  enforce_idempotency: true
+
+transport:
+  ssh_key: # <path to the aws ssh private key>
+  username: ec2-user
 
 verifier:
   name: inspec
 
 platforms:
-  - name: ubuntu-16.04
-  - name: centos-7
+  - name: suse-11
+    driver:
+      image_id: ami-a2baf5d5
 
 suites:
   - name: default
