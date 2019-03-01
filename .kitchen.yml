@@ -19,7 +19,6 @@ provisioner:
 
 transport:
   ssh_key: # <path to the aws ssh private key>
-  username: ec2-user
 
 verifier:
   name: inspec
@@ -28,6 +27,13 @@ platforms:
   - name: suse-11
     driver:
       image_id: ami-a2baf5d5
+    transport:
+      username: ec2-user
+  - name: centos-6
+    driver:
+      image_id: ami-a625b8df
+    transport:
+      username: centos
 
 suites:
   - name: default
