@@ -4,8 +4,8 @@
 #
 # Copyright:: 2019, The Authors, All Rights Reserved.
 
-package 'ntp'
+package node['sap_ntp']['pkg']
 
-service 'ntp' do
+service node['sap_ntp']['service'] do
   action [:enable, :start]
 end
